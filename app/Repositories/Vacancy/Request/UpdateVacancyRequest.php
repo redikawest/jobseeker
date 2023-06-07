@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Repositories\Candidate\Request;
+namespace App\Repositories\Vacancy\Request;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateCandidateRequest extends FormRequest
+class UpdateVacancyRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,11 @@ class CreateCandidateRequest extends FormRequest
     public function rules()
     {
         return [
-            'full_name' => 'required|string',
-            'dob'       => 'required|string',
-            'gender'    => 'required|in:Male,Female,male,female'
+            'vacancy_name'  => 'required|string',
+            'min_age'       => 'required|integer',
+            'max_age'       => 'required|integer',
+            'expired_date'  => 'required',
+            'requirement_gender'    => 'required|in:Male,Female,All,male,female, all'
         ];
     }
 }

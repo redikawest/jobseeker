@@ -13,7 +13,10 @@ class CandidateLogic implements CandidateInterface
     public function getAll(Request $request)
     {
         $data = Candidate::filter($request)->get();
-        // dd($data);
+        if (!$data || count($data) == 0) {
+            return response(['message' => 'Candidate Data Not Found'], 404);
+        }
+            
         return response()->json([
             'data'  => $data
         ]);
@@ -23,14 +26,18 @@ class CandidateLogic implements CandidateInterface
     {
         try {
 
+            $candidate = Candidate::Name($request->full_name)->first();
+            if ($candidate) {
+                return response([ 'message' => 'Duplicate Candidate'], 409);
+            }
+
             $this->saveCandidate($request);
 
-            return response([
-                'message' => 'Success Create Data Candidate'
-            ], 200);
+            return response(['message' => 'Success Create Data Candidate'], 200);
 
         } catch (Exception $exception) {
             Log::error($exception);
+            return $exception;
         }
     }
 
@@ -40,9 +47,12 @@ class CandidateLogic implements CandidateInterface
 
             $data = Candidate::find($candidateId);
             if (!$data) {
-                return response([
-                    'message' => 'Candidate Data Not Found'
-                ], 404);
+                return response(['message' => 'Candidate Data Not Found'], 404);
+            }
+
+            $candidate = Candidate::Name($request->full_name)->first();
+            if ($candidate) {
+                return response([ 'message' => 'Duplicate Candidate'], 409);
             }
 
             $data->update([
@@ -51,12 +61,11 @@ class CandidateLogic implements CandidateInterface
                 'gender'    => $request->gender
             ]);
 
-            return response([
-                'message' => 'Success Update Data Candidate'
-            ], 200);
+            return response(['message' => 'Success Update Data Candidate'], 200);
 
         } catch (Exception $exception) {
             Log::error($exception);
+            return $exception;
         }
     }
 
@@ -66,19 +75,16 @@ class CandidateLogic implements CandidateInterface
 
             $data = Candidate::find($candidateId);
             if (!$data) {
-                return response([
-                    'message' => 'Candidate Data Not Found'
-                ], 404);
+                return response(['message' => 'Candidate Data Not Found'], 404);
             }
 
             $data->delete();
 
-            return response([
-                'message' => 'Success Delete Data Candidate'
-            ], 200);
+            return response(['message' => 'Success Delete Data Candidate'], 200);
 
         } catch (Exception $exception) {
             Log::error($exception);
+            return $exception;
         }
     }
 

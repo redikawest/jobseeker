@@ -12,6 +12,7 @@ class Candidate extends Model
     use SoftDeletes;
 
     protected $table = 'candidates';
+    protected $guarded = [];
 
     /**
      * 
@@ -25,17 +26,16 @@ class Candidate extends Model
 
             if ($request->has('search') && strlen($request->search) > 1) {
                 $query->where(function ($search) use ($request) {
-                    $search->where("full_name", "LIKE", "%$request->search%")
-                        ->orWhere("dob", "LIKE", "%$request->search%")
-                        ->orWhere("gender", "LIKE", "%$request->search%");
+                    $search->where("full_name", "LIKE", "%$request->search%");
                 });
 
             }
-        });
+        })
+        ->select('id', 'full_name', 'dob', 'gender');
     }
 
-    public function scopeId($query, $request)
+    public function scopeName($query, $name)
     {
-        
+        return $query->where('full_name', $name);
     }
 }

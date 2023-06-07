@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\Candidate\Logic\CandidateLogic;
+use App\Repositories\Candidate\Request\CreateCandidateRequest;
+use App\Repositories\Candidate\Request\UpdateCandidateRequest;
 use Illuminate\Http\Request;
 
 class CandidateController extends Controller
@@ -20,12 +22,12 @@ class CandidateController extends Controller
         return $this->candidateLogic->getAll($request);
     }
 
-    public function create(Request $request)
+    public function create(CreateCandidateRequest $request)
     {
         return $this->candidateLogic->create($request);
     }
 
-    public function update($candidateId, Request $request)
+    public function update($candidateId, UpdateCandidateRequest $request)
     {
         return $this->candidateLogic->update($candidateId, $request);
     }

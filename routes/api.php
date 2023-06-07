@@ -16,11 +16,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-Route::get('/vacancy', [VacancyController::class, 'getAll']);
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
 Route::prefix('candidate')
     ->group(function () {
@@ -28,4 +26,12 @@ Route::prefix('candidate')
         Route::post('', [CandidateController::class, 'create']);
         Route::put('/{candidateId}', [CandidateController::class, 'update']);
         Route::delete('/{candidateId}', [CandidateController::class, 'delete']);
+    });
+
+Route::prefix('vacancy')
+    ->group(function () {
+        Route::get('', [VacancyController::class, 'getAll']);
+        Route::post('', [VacancyController::class, 'create']);
+        Route::put('/{vacancyId}', [VacancyController::class, 'update']);
+        Route::delete('/{vacancyId}', [VacancyController::class, 'delete']);
     });
