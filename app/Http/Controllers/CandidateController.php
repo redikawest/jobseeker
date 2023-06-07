@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Repositories\Candidate\Logic\CandidateLogic;
 use App\Repositories\Candidate\Request\CreateCandidateRequest;
+use App\Repositories\Candidate\Request\SetApplicationRequest;
 use App\Repositories\Candidate\Request\UpdateCandidateRequest;
 use Illuminate\Http\Request;
 
@@ -35,5 +36,10 @@ class CandidateController extends Controller
     public function delete($candidateId)
     {
         return $this->candidateLogic->delete($candidateId);
+    }
+
+    public function setApplication(SetApplicationRequest $request)
+    {
+        return $this->candidateLogic->setApplication($request);
     }
 }

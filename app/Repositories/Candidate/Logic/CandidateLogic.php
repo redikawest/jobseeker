@@ -4,6 +4,8 @@ namespace App\Repositories\Candidate\Logic;
 
 use App\Repositories\Candidate\Interface\CandidateInterface;
 use App\Repositories\Candidate\Models\Candidate;
+use App\Repositories\Candidate\Models\CandidateApplication;
+use App\Repositories\Vacancy\Models\Vacancy;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -88,6 +90,30 @@ class CandidateLogic implements CandidateInterface
         }
     }
 
+    public function setApplication(Request $request)
+    {
+        try {
+
+            $candidate = Candidate::find($request->candidate_id);
+            if (!$candidate) {
+                return response(['message' => 'Candidate Data Not Found'], 404);
+            }
+
+            $vacancy = Vacancy::find($request->vacancy_id);
+            if (!$vacancy) {
+                return response(['message' => 'Vacancy Data Not Found'], 404);
+            }
+            
+            $this->saveApplication($request);
+
+            return response(['message' => 'Success Apply Vacancy'], 200);
+
+        } catch(Exception $exception) {
+            Log::error($exception);
+            return $exception;
+        }
+    }
+
     /**
      * 
      * Private Function
@@ -100,6 +126,15 @@ class CandidateLogic implements CandidateInterface
             'full_name' => $request->full_name,
             'dob'       => $request->dob,
             'gender'    => $request->gender
+        ]);
+    }
+
+    private function saveApplication(Request $request)
+    {
+        return CandidateApplication::create([
+            'candidate_id'  => $request->candidate_id,
+            'vacancy_id'    => $request->vacancy_id,
+            'apply_date'    => now()
         ]);
     }
 }

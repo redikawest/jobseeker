@@ -26,6 +26,7 @@ Route::prefix('candidate')
         Route::post('', [CandidateController::class, 'create']);
         Route::put('/{candidateId}', [CandidateController::class, 'update']);
         Route::delete('/{candidateId}', [CandidateController::class, 'delete']);
+        Route::post('/apply', [CandidateController::class, 'setApplication']);
     });
 
 Route::prefix('vacancy')

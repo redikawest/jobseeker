@@ -10,4 +10,5 @@ interface CandidateInterface {
     public function create(Request $request);
     public function update($candidateId, Request $request);
     public function delete($candidateId);
+    public function setApplication(Request $request);
 }
