@@ -34,7 +34,15 @@ class VacancyLogic implements VacancyInterface
                 return response([ 'message' => 'Duplicate Vacancy'], 409);
             }
 
-            $this->saveVacancy($request);
+            $data = new Vacancy();
+            $data->vacancy_name = $request->vacancy_name;
+            $data->min_age = $request->min_age;
+            $data->max_age = $request->max_age;
+            $data->requirement_gender = $request->requirement_gender;
+            $data->expired_date = $request->expired_date;
+            $data->save();
+
+            // $this->saveVacancy($request);
 
             return response(['message' => 'Success Create Data Vacancy'], 200);
 
@@ -58,7 +66,14 @@ class VacancyLogic implements VacancyInterface
                 return response([ 'message' => 'Duplicate Vacancy'], 409);
             }
 
-            $this->updateVacancy($request, $data);
+            $data->vacancy_name = $request->vacancy_name;
+            $data->min_age = $request->min_age;
+            $data->max_age = $request->max_age;
+            $data->requirement_gender = $request->requirement_gender;
+            $data->expired_date = $request->expired_date;
+            $data->save();
+
+            // $this->updateVacancy($request, $data);
 
             return response(['message' => 'Success Update Data Vacancy'], 200);
 

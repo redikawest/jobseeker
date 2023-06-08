@@ -36,7 +36,12 @@ class CandidateLogic implements CandidateInterface
                 return response([ 'message' => 'Duplicate Candidate'], 409);
             }
 
-            $this->saveCandidate($request);
+            $data = new Candidate();
+            $data->full_name = $request->full_name;
+            $data->gender = $request->gender;
+            $data->dob = $request->dob;
+            $data->save();
+            // $this->saveCandidate($request);
 
             return response(['message' => 'Success Create Data Candidate'], 200);
 
@@ -60,11 +65,16 @@ class CandidateLogic implements CandidateInterface
                 return response([ 'message' => 'Duplicate Candidate'], 409);
             }
 
-            $data->update([
-                'full_name' => $request->full_name,
-                'dob'       => $request->dob,
-                'gender'    => $request->gender
-            ]);
+            $data->full_name = $request->full_name;
+            $data->gender = $request->gender;
+            $data->dob = $request->dob;
+            $data->save();
+
+            // $data->update([
+            //     'full_name' => $request->full_name,
+            //     'dob'       => $request->dob,
+            //     'gender'    => $request->gender
+            // ]);
 
             return response(['message' => 'Success Update Data Candidate'], 200);
 

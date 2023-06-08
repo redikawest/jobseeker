@@ -16,6 +16,46 @@ class Candidate extends Model
 
     /**
      * 
+     * Getter
+     * 
+     */
+    public function getFullNameAttribute()
+    {
+        return $this->attributes['full_name'];
+    }
+
+    public function getDobAttribute()
+    {
+        return $this->attributes['dob'];
+    }
+
+    public function getGenderAttribute()
+    {
+        return $this->attributes['gender'];
+    }
+
+    /**
+     * 
+     * Setter
+     * 
+     */
+    public function setFullNameAttribute($value)
+    {
+        $this->attributes['full_name'] = $value;
+    }
+
+    public function setDobAttribute($value)
+    {
+        $this->attributes['dob'] = $value;
+    }
+
+    public function setGenderAttribute($value)
+    {
+        $this->attributes['gender'] = $value;
+    }
+
+    /**
+     * 
      * Function
      * 
      */

@@ -16,6 +16,67 @@ class Vacancy extends Model
 
     /**
      * 
+     * Getter
+     * 
+     */
+    public function getVacancyNameAttribute()
+    {
+        return $this->attributes['vacancy_name'];
+    }
+
+    public function getMinAgeAttribute()
+    {
+        return $this->attributes['min_age'];
+    }
+
+    public function getMaxAgeAttribute()
+    {
+        return $this->attributes['max_age'];
+    }
+
+    public function getRequirementGenderAttribute()
+    {
+        return $this->attributes['requirement_gender'];
+    }
+
+    public function getExpiredDateAttribute()
+    {
+        return $this->attributes['expired_date'];
+    }
+
+    /**
+     * 
+     * Setter
+     * 
+     */
+
+    public function setVacancyNameAttribute($value)
+    {
+        return $this->attributes['vacancy_name'] = $value;
+    }
+
+    public function setMinAgeAttribute($value)
+    {
+        return $this->attributes['min_age'] = $value;
+    }
+
+    public function setMaxAgeAttribute($value)
+    {
+        return $this->attributes['max_age'] = $value;
+    }
+
+    public function setRequirementGenderAttribute($value)
+    {
+        return $this->attributes['requirement_gender'] = $value;
+    }
+
+    public function setExpiredDateAttribute($value)
+    {
+        return $this->attributes['expired_date'] = $value;
+    }
+
+    /**
+     * 
      * Function
      * 
      */
