@@ -23,7 +23,7 @@ class CandidateLogic implements CandidateInterface
         }
         
         return response()->json([
-            'data'  => $data
+            'data'  => $this->parserCollections($data)
         ]);
     }
 
@@ -149,5 +149,43 @@ class CandidateLogic implements CandidateInterface
             'vacancy_id'    => $request->vacancy_id,
             'apply_date'    => now()
         ]);
+    }
+
+    private function parserCollections($collections)
+    {
+        $results = [];
+        foreach($collections as $data) {
+            $results[] = $this->parserData($data);
+        }
+
+        return $results;
+    }
+
+    private function parserData($data)
+    {
+        if (!$data) {
+            return null;
+        }
+
+        return [
+            'id'    => $data->id,
+            'full_name' => $data->full_name,
+            'dob'       => $data->dob,
+            'gender'    => $data->gender,
+            'applied_job'   => $this->parserApplication($data->vacancies)
+        ];
+    }
+
+    private function parserApplication($collections)
+    {
+        $results = [];
+        foreach($collections as $data) {
+            $results[] = [
+                'vacancy_name'  => $data->vacancy_name,
+                'expired_date'    => $data->expired_date
+            ];
+        }
+
+        return $results;
     }
 }

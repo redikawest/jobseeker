@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Candidate\Models;
 
+use App\Repositories\Vacancy\Models\Vacancy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -52,6 +53,17 @@ class Candidate extends Model
     public function setGenderAttribute($value)
     {
         $this->attributes['gender'] = $value;
+    }
+
+    /**
+     * 
+     * Relationship
+     * 
+     */
+
+    public function vacancies()
+    {
+        return $this->belongsToMany(Vacancy::class, 'candidate_applies', 'candidate_id', 'vacancy_id');
     }
 
     /**

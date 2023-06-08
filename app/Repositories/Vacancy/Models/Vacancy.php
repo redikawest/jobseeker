@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Vacancy\Models;
 
+use App\Repositories\Candidate\Models\Candidate;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -73,6 +74,17 @@ class Vacancy extends Model
     public function setExpiredDateAttribute($value)
     {
         return $this->attributes['expired_date'] = $value;
+    }
+
+    /**
+     * 
+     * Relationship
+     * 
+     */
+
+    public function candidates()
+    {
+        return $this->belongsToMany(Candidate::class, 'candidate_applies', 'vacancy_id', 'candidate_id');
     }
 
     /**
