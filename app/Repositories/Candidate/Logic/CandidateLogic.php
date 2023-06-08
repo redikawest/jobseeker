@@ -14,11 +14,14 @@ class CandidateLogic implements CandidateInterface
 {
     public function getAll(Request $request)
     {
-        $data = Candidate::filter($request)->get();
+        $sortBy = $request->sort_by ? $request->sort_by : 'id';
+        $orderBy = $request->order_by ? $request->order_by : 'asc';
+
+        $data = Candidate::filter($request)->orderBy($sortBy, $orderBy)->get();
         if (!$data || count($data) == 0) {
             return response(['message' => 'Candidate Data Not Found'], 404);
         }
-            
+        
         return response()->json([
             'data'  => $data
         ]);

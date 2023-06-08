@@ -24,11 +24,14 @@ class Candidate extends Model
     {
         return $query->where(function ($query) use ($request) {
 
+            if ($request->has('gender') && $request->gender != '') {
+                $query->where('gender', $request->gender);
+            }
+
             if ($request->has('search') && strlen($request->search) > 1) {
                 $query->where(function ($search) use ($request) {
                     $search->where("full_name", "LIKE", "%$request->search%");
                 });
-
             }
         })
         ->select('id', 'full_name', 'dob', 'gender');

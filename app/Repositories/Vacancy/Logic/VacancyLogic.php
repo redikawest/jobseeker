@@ -12,7 +12,10 @@ class VacancyLogic implements VacancyInterface
 {
     public function getAll(Request $request)
     {
-        $data = Vacancy::filter($request)->get();
+        $sortBy = $request->sort_by ? $request->sort_by : 'id';
+        $orderBy = $request->order_by ? $request->order_by : 'asc';
+
+        $data = Vacancy::filter($request)->orderBy($sortBy, $orderBy)->get();
         if (!$data || count($data) == 0) {
             return response(['message' => 'Vacancy Data Not Found'], 404);
         }
